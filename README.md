@@ -38,7 +38,7 @@ zypper install podman
 
 Then as a non root and NON SUDO user, create your mysql container with your own parameters:
 ```
-podman run --name=bot_mysql -d -p Your_MySQL_Port:3306 -v testmysql:/var/lib/mysql \
+podman run --name=bot_mysql -d -p Your_MySQL_Port:3306 -v mysql_bot:/var/lib/mysql \
 -e MYSQL_ROOT_PASSWORD=CreateRootPassword \
 -e MYSQL_USER=CreateUserName \
 -e MYSQL_PASSWORD=CreateUserPassword \
