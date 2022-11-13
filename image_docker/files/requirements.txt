@@ -17,9 +17,9 @@ humanize==3.13.1
 idna==3.3
 iso8601==1.0.0
 lxml==4.8.0
-mariadb==1.0.11
 multidict==5.2.0
 playsound==1.2.2
+mysql_connector_python==8.0.31
 pydantic==1.9.1; python_full_version >= '3.6.1'
 pyjokes==0.6.0
 pyserial==3.5
