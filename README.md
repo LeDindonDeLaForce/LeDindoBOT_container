@@ -157,7 +157,7 @@ podman generate systemd --files --name POD_ID
 
 
 podman stop POD ID
-systemctl --user enable --now pod-******.service   ###Enable only the pod service, not containers.
+systemctl --user enable pod-******.service   ###Enable only the pod service, not containers.
 ```
 
 Finally, as ROOT user perform the following command:
