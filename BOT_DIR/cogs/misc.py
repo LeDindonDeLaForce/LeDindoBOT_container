@@ -110,7 +110,7 @@ class Misc(commands.Cog):
 
     @commands.command(name="blague")
     async def blagueapi(self, ctx: commands.Context):
-        blagues=BlaguesAPI("TOKEN") #token a récupérer sur https://www.blagues-api.fr/
+        blagues=BlaguesAPI("Token_Blagues-API") #token a récupérer sur https://www.blagues-api.fr/
         rep = await blagues.random(disallow=[BlagueType.DARK,BlagueType.LIMIT,BlagueType.BEAUF])
         await ctx.send("[" + rep.type.capitalize() + "] : " + rep.joke)
         await asyncio.sleep(3)

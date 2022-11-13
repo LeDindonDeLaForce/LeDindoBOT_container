@@ -1,0 +1,72 @@
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-4.1.1
+
+# NOTE: If you generated this yaml from an unprivileged and rootless podman container on an SELinux
+# enabled system, check the podman generate kube man page for steps to follow to ensure that your pod/container
+# has the right permissions to access the volumes added.
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    io.kubernetes.cri-o.TTY/ledindobot-alpinedindobase1: "false"
+    io.kubernetes.cri-o.TTY/ledindobot-alpineledindobot1: "false"
+    io.podman.annotations.autoremove/ledindobot-alpinedindobase1: "FALSE"
+    io.podman.annotations.autoremove/ledindobot-alpineledindobot1: "FALSE"
+    io.podman.annotations.init/ledindobot-alpinedindobase1: "FALSE"
+    io.podman.annotations.init/ledindobot-alpineledindobot1: "FALSE"
+    io.podman.annotations.privileged/ledindobot-alpinedindobase1: "FALSE"
+    io.podman.annotations.privileged/ledindobot-alpineledindobot1: "FALSE"
+    io.podman.annotations.publish-all/ledindobot-alpinedindobase1: "FALSE"
+    io.podman.annotations.publish-all/ledindobot-alpineledindobot1: "FALSE"
+    org.opencontainers.image.base.digest/ledindobot-alpineledindobot1: sha256:d392a5407de179f7bf2308d462ef8e2d18fa3a971ca2685357405d1e
+    org.opencontainers.image.base.name/ledindobot-alpineledindobot1: docker.io/library/alpine:3.16.2
+  creationTimestamp: "2022-11-08T19:20:51Z"
+  labels:
+    app: ledindobot-alpinedindobase1-pod
+  name: ledindobot-alpinedindobase1-pod
+spec:
+  containers:
+  - args:
+    - mysqld
+    env:
+    - name: MYSQL_DATABASE
+      value: TWITCH_BOT
+    - name: MYSQL_ROOT_PASSWORD
+      value: your_mysql_root_password
+    - name: MYSQL_USER
+      value: yourdbuser
+    - name: MYSQL_PASSWORD
+      value: your_myser_user_password
+    image: docker.io/library/mysql:8.0.31-oracle
+    name: ledindobot-alpinedindobase1
+    ports:
+    - containerPort: 3306
+      hostPort: 3306 ## you can replace it with your own custim port
+    securityContext:
+      capabilities:
+        drop:
+        - CAP_MKNOD
+        - CAP_AUDIT_WRITE
+    volumeMounts:
+    - mountPath: /var/lib/mysql
+      name: ledindobot-alpine_db_mysql_bot-pvc
+  - image: localhost/ledindobot:alpine-mysql
+    name: ledindobot-alpineledindobot1
+    securityContext:
+      capabilities:
+        drop:
+        - CAP_MKNOD
+        - CAP_AUDIT_WRITE
+    volumeMounts:
+    - mountPath: /BOT_DIR
+      name: ledindobot-alpine_dindobot_alpine_mysql_py-pvc
+  volumes:
+  - name: ledindobot-alpine_db_mysql_bot-pvc
+    persistentVolumeClaim:
+      claimName: ledindobot-alpine_db_mysql_bot
+  - name: ledindobot-alpine_dindobot_alpine_mysql_py-pvc
+    persistentVolumeClaim:
+      claimName: ledindobot-alpine_dindobot_alpine_mysql_py

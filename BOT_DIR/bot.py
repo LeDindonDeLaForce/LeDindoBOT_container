@@ -14,7 +14,7 @@ from twitchio.ext import commands, pubsub, routines
 from utils import check_for_bot, random_bot_reply, random_reply, auto_so
 
 
-tw_channels=["set", "channels"]
+tw_channels=[ "type", "channels", "names", "like", "this" ]
 
 class ledindobot(commands.Bot):
 
@@ -347,7 +347,7 @@ class ledindobot(commands.Bot):
             await ctx.send(f"C'est à ton tour @{queue_player} MrDestructoid")
             
     
-    @commands.command(name="queue", aliases=['list'])
+    @commands.command(name="queue", aliases=['list','liste'])
     async def player_list_queue(self, ctx: commands.Context):
             
         channel = ctx.author.channel.name.lower()
@@ -433,16 +433,16 @@ class ledindobot(commands.Bot):
             f'Tu veux voir mon code source ? Il est ici : https://github.com/LeDindonDeLaForce/LeDindoBOT MrDestructoid'
         )
 
-    @commands.command(name="commands", aliases=['commandlist'])
-    async def list(self, ctx: commands.Context):
-        list = []
+    @commands.command(name="showcommands")
+    async def showcommands(self, ctx: commands.Context):
+        cmdlist = []
         for command in self.commands:
-            list.append(command)
+            cmdlist.append(command)
 
-        #list.sort()
-        list = str(list)[1:-1] #remove list square brackets
+        #cmdlist.sort()
+        cmdlist = str(cmdlist)[1:-1] #remove list square brackets
 
-        await ctx.send(f'La liste des commandes de ledindobot (hors custom) : {list}')
+        await ctx.send(f'La liste des commandes de ledindobot (hors custom) : {cmdlist}')
 
 
 
@@ -512,7 +512,7 @@ class ledindobot(commands.Bot):
             self.vip_so[channel] = {}
             add_channel(channel)
 
-    @commands.command(name="leave")
+    @commands.command(name="leave", aliases=['quit','exit'])
     async def leave(self, ctx: commands.Context, channel):
         if ctx.author.name == os.environ['CHANNEL'] or ctx.author.name == channel:
             await ctx.send(f'Leaving channel {channel}')

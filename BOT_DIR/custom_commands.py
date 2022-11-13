@@ -1,6 +1,6 @@
 import logging
 import os
-import mariadb
+import mysql.connector
 import logging
 from twitchio.ext import routines
 import time
@@ -13,9 +13,9 @@ queues = {}
 roulettes = {}
 active_queues = {}
 params = {
-    'user':'ledindobot',
-    'password':'password',
-    'host':'db',
+    'user':'youtdbuser',
+    'password':'yourpassword',
+    'host':'127.0.0.1',
     'port':3306,
     'database':'TWITCH_BOT'
 }
@@ -26,7 +26,7 @@ def init_commands():
     try:
 	# connect to the MariaDB server
         logging.info('Initializing commands')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -43,7 +43,7 @@ def init_commands():
         # close the communication with the MariaDB
         cur.close()
 
-    except (Exception, mariadb.Error) as error:
+    except (Exception, mysql.connector.Error) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -68,7 +68,7 @@ def add_command(command, channel, text):
     try:
         # connect to the MariaDB server
         logging.info('Initializing commands')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
 
         # create a cursor
@@ -81,14 +81,14 @@ def add_command(command, channel, text):
 
         conn.commit()
 
-        for command in commands_raw:
-            logging.info(command[1])
-            commands[(command[0], command[1])] = command[2]
+        #for command in commands_raw:
+        logging.info(command[1])
+        commands[(command[0], command[1])] = command[2]
 
         # close the communication with the MariaDB
         cur.close()
 
-    except (Exception, mariadb.Error) as error:
+    except (Exception, mysql.connector.Error) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -104,7 +104,7 @@ def edit_command(command, channel, text):
     try:
         # connect to the MariaDB server
         logging.info('Initializing commands')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -115,14 +115,14 @@ def edit_command(command, channel, text):
         )
         conn.commit()
 
-        for command in commands_raw:
-            logging.info(command[1])
-            commands[(command[0], command[1])] = command[2]
+        #for command in commands_raw:
+        logging.info(command[1])
+        commands[(command[0], command[1])] = command[2]
 
         # close the communication with the MariaDB
         cur.close()
 
-    except (Exception, mariadb.Error) as error:
+    except (Exception, mysql.connector.Error) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -138,7 +138,7 @@ def remove_command(command, channel):
     try:
         # connect to the MariaDB server
         logging.info('Initializing commands')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -150,14 +150,14 @@ def remove_command(command, channel):
 
         conn.commit()
 
-        for command in commands_raw:
-            logging.info(command[1])
-            commands[(command[0], command[1])] = command[2]
+        #for command in commands_raw:
+        logging.info(command[1])
+        commands[(command[0], command[1])] = command[2]
 
         # close the communication with the MariaDB
         cur.close()
 
-    except (Exception, mariadb.Error) as error:
+    except (Exception, mysql.connector.Error) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -185,7 +185,7 @@ def add_routine(
 
         # connect to the MariaDB server
         logging.info('Adding new routine to db')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -199,7 +199,7 @@ def add_routine(
         # close the communication with the MariaDB
         cur.close()
 
-    except (Exception, mariadb.DatabaseError) as error:
+    except (Exception, mysql.connector.DatabaseError) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -217,7 +217,7 @@ def init_routines(bot):
 
         # connect to the MariaDB server
         logging.info('Initializing routines')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -242,7 +242,7 @@ def init_routines(bot):
         # close the communication with the MariaDB
         cur.close()
 
-    except (Exception, mariadb.DatabaseError) as error:
+    except (Exception, mysql.connector.DatabaseError) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -260,7 +260,7 @@ def remove_routine(channel, name):
 
         # connect to the MariaDB server
         logging.info('Removing routine from db')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -275,7 +275,7 @@ def remove_routine(channel, name):
         # close the communication with the MariaDB
         cur.close()
 
-    except (Exception, mariadb.DatabaseError) as error:
+    except (Exception, mysql.connector.DatabaseError) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -294,7 +294,7 @@ def init_users(channels):
 
         # connect to the MariaDB server
         logging.info('Init users to db')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -311,7 +311,7 @@ def init_users(channels):
         # close the communication with the MariaDB
         cur.close()
 
-    except (Exception, mariadb.DatabaseError) as error:
+    except (Exception, mysql.connector.DatabaseError) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -326,7 +326,7 @@ def init_roulettes(channels):
     try:
 	# connect to the MariaDB server
         logging.info('Initializing roulettes')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -350,7 +350,7 @@ def init_roulettes(channels):
         
         # close the communication with the MariaDB
         cur.close()
-    except (Exception, mariadb.Error) as error:
+    except (Exception, mysql.connector.Error) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -374,7 +374,7 @@ def start_roulette(channel):
     try:
 	# connect to the MariaDB server
         logging.info('Initializing queues')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -392,7 +392,7 @@ def start_roulette(channel):
         # close the communication with the MariaDB
         conn.commit()
         cur.close()
-    except (Exception, mariadb.Error) as error:
+    except (Exception, mysql.connector.Error) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -406,7 +406,7 @@ def stop_roulette(channel):
     try:
 	# connect to the MariaDB server
         logging.info('Initializing queues')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -427,7 +427,7 @@ def stop_roulette(channel):
         # close the communication with the MariaDB
         conn.commit()
         cur.close()
-    except (Exception, mariadb.Error) as error:
+    except (Exception, mysql.connector.Error) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -447,7 +447,7 @@ def join_queue(channel, user):
 
         # connect to the MariaDB server
         logging.info(f'Joining {user} to queue')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -465,7 +465,7 @@ def join_queue(channel, user):
         result = True        
         
 
-    except (Exception, mariadb.DatabaseError) as error:
+    except (Exception, mysql.connector.DatabaseError) as error:
         logging.error(error)
         result = False
     finally:
@@ -486,7 +486,7 @@ def leave_queue(channel, user):
 
         # connect to the MariaDB server
         logging.info(f'Leaving {user} from queue')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -500,7 +500,7 @@ def leave_queue(channel, user):
         queues[f'{channel}'].remove(user)
         result = True
         
-    except (Exception, mariadb.DatabaseError) as error:
+    except (Exception, mysql.connector.DatabaseError) as error:
         logging.error(error)
         result = False
     finally:
@@ -519,7 +519,7 @@ def clear_queue(channel):
 
         # connect to the MariaDB server
         logging.info(f'Clearing {channel} queue')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -537,7 +537,7 @@ def clear_queue(channel):
         cur.close()
         result = True
 
-    except (Exception, mariadb.DatabaseError) as error:
+    except (Exception, mysql.connector.DatabaseError) as error:
         logging.error(error)
         result = False
     finally:
@@ -558,7 +558,7 @@ def queue_on_off(channel, boolean):
 
         # connect to the MariaDB server
         logging.info('Queue on/off')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -574,7 +574,7 @@ def queue_on_off(channel, boolean):
         # close the communication with the MariaDB
         cur.close()
         result = True
-    except (Exception, mariadb.DatabaseError) as error:
+    except (Exception, mysql.connector.DatabaseError) as error:
         logging.error(error)
         result = False
     finally:
@@ -625,7 +625,7 @@ def init_queue(channels):
     try:
 	# connect to the MariaDB server
         logging.info('Initializing queues')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -656,7 +656,7 @@ def init_queue(channels):
         
         # close the communication with the MariaDB
         cur.close()
-    except (Exception, mariadb.Error) as error:
+    except (Exception, mysql.connector.Error) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -690,7 +690,7 @@ def add_author(channel, author):
 
         # connect to the MariaDB server
         logging.info('Adding new author to db')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -707,7 +707,7 @@ def add_author(channel, author):
         
         
 
-    except (Exception, mariadb.DatabaseError) as error:
+    except (Exception, mysql.connector.DatabaseError) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -725,7 +725,7 @@ def del_author(channel, author):
 
         # connect to the MariaDB server
         logging.info('Removing author to db')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -742,7 +742,7 @@ def del_author(channel, author):
         # close the communication with the MariaDB
         cur.close()
 
-    except (Exception, mariadb.DatabaseError) as error:
+    except (Exception, mysql.connector.DatabaseError) as error:
         logging.error(error)
     finally:
         if conn is not None:
@@ -772,7 +772,7 @@ def init_authors(channels):
     try:
 	# connect to the MariaDB server
         logging.info('Initializing commands')
-        conn = mariadb.connect(**params)
+        conn = mysql.connector.connect(**params)
 
         # create a cursor
         cur = conn.cursor()
@@ -795,7 +795,7 @@ def init_authors(channels):
         # close the communication with the MariaDB
         cur.close()
 
-    except (Exception, mariadb.Error) as error:
+    except (Exception, mysql.connector.Error) as error:
         logging.error(error)
     finally:
         if conn is not None:
