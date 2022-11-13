@@ -116,7 +116,7 @@ chmod 700 ~/
 
 Go to the image_docker directory and build your image with your name and your tag:
 ```
-image_docker
+cd image_docker
 podman build . < Dockerfile --tag=YourImageName:YourTag
 ```
 
