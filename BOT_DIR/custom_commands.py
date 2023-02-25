@@ -13,7 +13,7 @@ queues = {}
 roulettes = {}
 active_queues = {}
 params = {
-    'user':'youtdbuser',
+    'user':'yourdbuser',
     'password':'yourpassword',
     'host':'127.0.0.1',
     'port':3306,
