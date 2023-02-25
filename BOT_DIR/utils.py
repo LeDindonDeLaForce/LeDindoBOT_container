@@ -12,7 +12,24 @@ from datetime import datetime, timedelta, timezone
 from twitchio.ext import commands
 
 
+### Janken choices
+janken_choices = ["pierre", "feuille", "ciseaux"]
+
 ### Replies ###
+
+janken_replies = {
+    'lose':                                ['Hahaha',               
+                                            'You lose bud DarkMode',                        
+                                            'J-O-U-E-M-I-E-U-X !',
+                                            'Dommage ! InuyoFace'],
+    'win':                                ['Nooon g perduuu TearGlove',
+                                            'Tricheur ! SwiftRage',
+                                            'Are you an Illuminati ? TheIlluminati',                 
+                                            'GG t tro faure MrDestructoid'],
+    'draw':                                ['Egalitay, on refait ? MrDestructoid',         
+                                            'Go refaire ! SMOrc',                
+                                            'Tu me copies ? 4Head']  
+}                                                              
 
 game_replies = {
     'Guilty Gear: Strive':                 ['#10HitPetitPoingCombo',
@@ -91,6 +108,29 @@ vip_replies = [
     '<3'
 ]
 
+def janken(input_choice):
+  print("Declenchement fonction")
+  if input_choice not in janken_choices:
+    resp = "Pour jouer, tape la commande !janken et pierre, feuille ou ciseaux MrDestructoid."
+  else:
+    ordinateur = random.choice(janken_choices)
+    if input_choice == ordinateur:
+      reply_pool = janken_replies['draw']
+      reply = random.choice(reply_pool)
+    elif input_choice == "pierre" and ordinateur == "ciseaux":
+      reply_pool = janken_replies['win']                                                                                                 
+      reply = random.choice(reply_pool)                                                                                                   
+    elif input_choice == "feuille" and ordinateur == "pierre":                                                                           
+      reply_pool = janken_replies['win']                                                                                                  
+      reply = random.choice(reply_pool)                                                                                                   
+    elif input_choice == "ciseaux" and ordinateur == "feuille":
+      reply_pool = janken_replies['win']                                                                                                  
+      reply = random.choice(reply_pool)                                                                                                   
+    else:
+      reply_pool = janken_replies['lose']                                                                           
+      reply = random.choice(reply_pool)                                                                            
+    resp = str(f"{ordinateur.capitalize()} ! {reply}")
+  return resp
 
 async def auto_so(bot, message, vip_info):
     vip_name = message.author.name
