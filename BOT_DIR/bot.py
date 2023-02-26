@@ -11,7 +11,7 @@ import custom_commands
 from twitchio import Channel, Client, User
 from twitchio.ext import commands, pubsub, routines
 
-from utils import check_for_bot, random_bot_reply, random_reply, auto_so
+from utils import check_for_bot, random_bot_reply, random_reply, auto_so, janken
 
 
 tw_channels=[ "type", "channels", "names", "like", "this" ]
@@ -93,6 +93,16 @@ class ledindobot(commands.Bot):
 
         # We are logged in and ready to chat and use commands...
         logging.info(f'Logged in as | {self.nick}')
+
+    @commands.command(name="janken")
+    async def gamejanken(self, ctx: commands.Context, *choice):
+      #if not choice:
+      #  await ctx.send(f"Pas de sélection")
+      #else:
+        choice = ' '.join(choice)
+        game_result = janken(choice)
+        await ctx.send(f"@{ctx.author.name} {game_result}")
+        
 
     async def event_message(self, message):
         # Messages with echo set to True are messages sent by the bot...
@@ -430,7 +440,7 @@ class ledindobot(commands.Bot):
     @commands.command(name="git", aliases=['source'])
     async def git(self, ctx: commands.Context):
         await ctx.send(
-            f'Tu veux voir mon code source ? Il est ici : https://github.com/LeDindonDeLaForce/LeDindoBOT MrDestructoid'
+            f'Tu veux voir mon code source ? Il est ici : https://github.com/LeDindonDeLaForce/LeDindoBOT_container/ MrDestructoid'
         )
 
     @commands.command(name="showcommands")
