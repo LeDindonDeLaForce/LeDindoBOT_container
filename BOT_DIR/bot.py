@@ -313,7 +313,7 @@ class ledindobot(commands.Bot):
         queue_player_tail = custom_commands.queue_end(ctx.author.channel.name, user.name)
         
         if queue_player_tail is True:
-            await ctx.send(f"@{user.name} a été envoyé à la fin de de la file MrDestructoid")
+            await ctx.send(f"@{user.name} a été envoyé à la fin de la file MrDestructoid")
 
 
 
