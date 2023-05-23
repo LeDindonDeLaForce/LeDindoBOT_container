@@ -296,7 +296,8 @@ class ledindobot(commands.Bot):
     @commands.command(name="end") #leaving the queue
     async def player_end_queue(self, ctx: commands.Context):
 
-
+        queue_player_end = custom_commands.leave_queue(ctx.author.channel.name, ctx.author.name)
+        queue_player_end = custom_commands.join_queue(ctx.author.channel.name, ctx.author.name)
         queue_player_end = custom_commands.queue_end(ctx.author.channel.name, ctx.author.name)
         
         if queue_player_end is True:
@@ -310,6 +311,8 @@ class ledindobot(commands.Bot):
             return
 
         #user = str(user.replace('@',''))
+        queue_player_tail = custom_commands.leave_queue(ctx.author.channel.name, user.name)
+        queue_player_tail = custom_commands.join_queue(ctx.author.channel.name, user.name)
         queue_player_tail = custom_commands.queue_end(ctx.author.channel.name, user.name)
         
         if queue_player_tail is True:
