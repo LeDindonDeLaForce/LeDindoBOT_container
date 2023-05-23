@@ -357,6 +357,8 @@ class ledindobot(commands.Bot):
         queue_player = custom_commands.queue_next(channel)
         
         if queue_player is not False:
+            queue_player_next = custom_commands.leave_queue(ctx.author.channel.name, queue_player)
+            queue_player_next = custom_commands.join_queue(ctx.author.channel.name, queue_player)
             await ctx.send(f"C'est à ton tour @{queue_player} MrDestructoid")
             
     
